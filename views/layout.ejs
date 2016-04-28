@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <%typeof meta !== 'undefined' && meta.length > 0 && meta.forEach(function (item){%><meta <%-(item.name ? 'name' : 'property')%>=”<%-item.property || item.name%>” content=”<%-item.content%>”/>
+    <%});%>
+    <title><%-title%> | Eat Homely</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/slidebars/0.10.2/slidebars.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/default.css">
+    <%(typeof css === 'object') && css.forEach(function (location) {%>
+    <link href="<%-location%>" rel="stylesheet" /><%});%>
+</head>
+<body>
+	
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lettering.js/0.7.0/jquery.lettering.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/textillate/0.4.0/jquery.textillate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/default.js"></script>
+    <%(typeof javascript === 'object') && javascript.forEach(function (location) {%>
+    <script src="<%-location%>"></script><%});%>
+</body>
+</html>
