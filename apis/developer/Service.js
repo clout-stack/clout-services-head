@@ -65,8 +65,7 @@ module.exports = {
 				},
 				function selectServer(archivePath, application, next) {
 					var server = {
-						// host: '192.168.100.23',
-						host: '192.168.100.23',
+						host: '192.168.10.110',
 						port: '8082'
 					};
 					next(null, archivePath, application, server);

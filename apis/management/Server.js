@@ -3,7 +3,8 @@
  */
 var debug = require('debug')('/api/management/server'),
 	async = require('async'),
-	clout = require('clout-js');
+	clout = require('clout-js'),
+	_ = require('lodash');
 
 module.exports = {
 	get: {
@@ -87,6 +88,7 @@ module.exports = {
 		fn: function del(req, res) {
 			var Server = req.models.Server;
 			Server.findById(req.params.id).then(function (server) {
+				if (!server) { return res.error('service not found'); }
 				server.destroy().then(res.success, res.error);
 			}, res.error);
 		}

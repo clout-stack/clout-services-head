@@ -7,9 +7,9 @@
     "clout"
   ],
   "author": "Muhammad Dadu",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/clout-stack/clout-services-head.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/clout-stack/clout-services-head.git"
   },
   "license": "ISC",
   "dependencies": {
@@ -23,5 +23,11 @@
     "promise": "^7.1.1",
     "request": "^2.69.0",
     "socket.io": "^1.4.5"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-mocha-test": "^0.12.7",
+    "mocha": "^2.4.5",
+    "should": "^8.3.1"
   }
 }

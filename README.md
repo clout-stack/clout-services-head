@@ -1,6 +1,25 @@
 clout-services-head
 ===========
 
+## Requirement
+- NGinx
+
+## Installation
+Clone the repository
+```bash
+git clone git@github.com:clout-stack/clout-services-head.git
+cd clout-services-head
+```
+
+Install dependencies
+```bash
+npm install
+```
+## Starting the service
+```
+node .
+```
+
 ### Endpoints
 - /list (list services)
 - /publish (publish service)
