@@ -53,6 +53,8 @@ module.exports = {
 		},
 		// hooks: [ auth.isLoggedIn() ],
 		fn: function add(req, res) {
+			var Server = req.models.Server,
+				Service = req.models.Service;
 			async.waterfall([
 				function (next) {
 					var form = new multiparty.Form();
@@ -64,11 +66,23 @@ module.exports = {
 					});
 				},
 				function selectServer(archivePath, application, next) {
-					var server = {
-						host: '192.168.10.110',
-						port: '8082'
-					};
-					next(null, archivePath, application, server);
+					var _server = null;
+					Server.findAndCountAll().then(function (servers) {
+						async.eachLimit(servers.rows, 1, function (server, go) {
+							server.isOnline().then(function () {
+								_server = server;
+								go(true);
+							}, function () {
+								debug('server not available');
+								go();
+							})
+						}, function (err) {
+							if (!_server) {
+								return res.error('No servers are available');
+							}
+							next(null, archivePath, application, _server);
+						});
+					});
 				},
 				function deploy(archivePath, application, server, next) {
 					typeof application === 'string' && (application = JSON.parse(application));
@@ -148,6 +162,35 @@ module.exports = {
 					}, 1000);
 				})(archivePath);
 				if (err) { console.error('error:', err); return res.error(err); }
+				var data = {
+					name: service.name,
+					user_id: service.user_id,
+					projectDir: service.projectDir,
+					containerId: service.containerId,
+					port: service.port,
+					publicKey: service.publicKey,
+					privateKey: service.privateKey,
+					status: 'active',
+					hosts: [service.host],
+					serverId: server.id
+				};
+				Service.find({
+					where: {
+						user_id: data.user_id,
+						name: data.name
+					}
+				}).then(function (service) {
+					if (!service) {
+						debug('isNewService');
+						return Service.create(data).then(debug, console.error);
+					}
+					debug('isExistingService');
+					['projectDir', 'containerId', 'port', 'publicKey', 'privateKey', 'hosts', 'serverId'].forEach(function (key) {
+						service[key] = data[key];
+					});
+					return service.save().then(debug, console.error);
+				});
+				// add to database
 				res.ok(service);
 			});
 		}

@@ -12,11 +12,11 @@ module.exports = {
 	description: 'Homepage',
 	fn: function (req, res, next) {
 		var tpl = {
-			layout: TEMPLATE_PATH,
+			layout: null,
 			title: 'Clout Services App',
 			css: ['/css/app.css'],
 			javascript: ['/js/app.js']
 		};
-		res.render('app', tpl);
+		res.render(TEMPLATE_PATH, tpl);
 	}
 }

@@ -15,9 +15,13 @@ if (!Sequelize) {
 }
 
 var definition = {
-		name: { type: Sequelize.STRING, allowNull: false },
-		user_id: { type: Sequelize.STRING, allowNull: false },
-		archive: { type: Sequelize.STRING, allowNull: false },
+		name:  { type: Sequelize.STRING, allowNull: false },
+		user_id:  { type: Sequelize.STRING, allowNull: false },
+		projectDir:  { type: Sequelize.STRING, allowNull: false },
+		containerId:  { type: Sequelize.STRING, allowNull: false },
+		port:  { type: Sequelize.STRING, allowNull: false },
+		publicKey:  { type: Sequelize.STRING, allowNull: false },
+		privateKey:  { type: Sequelize.STRING, allowNull: false },
 		status: { type: Sequelize.STRING, allowNull: false },
 		hosts: {
 			type: Sequelize.TEXT,
@@ -29,7 +33,7 @@ var definition = {
 				var hosts = this.getDataValue('hosts');
 				return !hosts ? [] : JSON.parse(hosts);
 			}
-		},
+		}
 	},
 	props = {}
 	Service = sequelize.define('Service', definition, props);

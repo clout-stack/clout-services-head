@@ -1,0 +1,13 @@
+<div ng-controller="manageServices">
+	<div ng-if="success" class="alert alert-success" role="alert">
+	  <strong>Well done!</strong> {{success}}
+	</div>
+	<div ng-if="error" class="alert alert-danger" role="alert">
+	  <strong>Oh snap!</strong> {{error}}
+	</div>
+	<div class="row">
+        <div class="col-md-12">
+			<table datatable="" dt-options="showCase.dtOptions" dt-columns="showCase.dtColumns" class="row-border hover"></table>
+        </div>
+    </div>
+</div>
