@@ -38,6 +38,12 @@ app.factory('Services', function ($http) {
                 method: 'GET',
                 url: '/api/management/service'
             });
+        },
+        isOnline: function isOnline(id){
+        	return $http({
+        		method: 'GET',
+        		url: '/api/management/service/' + id + '/isOnline'
+        	});
         }
     };
 });
@@ -197,15 +203,31 @@ app.controller('manageServices', function ($scope, $compile, DTOptionsBuilder, D
 	}
 	$scope.error = null;
 	$scope.success = null;
+	$scope.isOnline = {};
+	function isOnline(id) {
+		if ($scope.isOnline[id]=== true || $scope.isOnline[id] === false) { return; }
+		Services.isOnline(id).then(function (data) {
+			data = data.data;
+			data.success && ($scope.isOnline[id] = data.data);
+		});
+	}
 	$scope.showCase = {};
 	$scope.showCase.dtColumns = [
+		DTColumnBuilder.newColumn('id').withTitle().renderWith(function (id) {
+			var html = '';
+			isOnline(id);
+			html += '<i ng-if="isOnline[' + id + ']" style="color:green" class="fa fa-circle"></i>';
+			html += '<i ng-if="isOnline[' + id + '] === false" style="color:red" class="fa fa-circle-o"></i>';
+			html += '<i ng-if="!isOnline.hasOwnProperty(' + id + ')" class="fa fa-circle-o"></i>';
+			return html;
+		}),
 		DTColumnBuilder.newColumn('name').withTitle('Application Name'),
 		DTColumnBuilder.newColumn('user_id').withTitle('User ID'),
 		// DTColumnBuilder.newColumn('containerId').withTitle('containerId'),
 		DTColumnBuilder.newColumn('port').withTitle('Port'),
 		DTColumnBuilder.newColumn('hosts').withTitle('Host'),
 		DTColumnBuilder.newColumn('Server.name').withTitle('Server'),
-		DTColumnBuilder.newColumn('status').withTitle('Status'),
+		// DTColumnBuilder.newColumn('status').withTitle('Status'),
 	    DTColumnBuilder.newColumn(null).withTitle('Actions').renderWith(function (data) {
 	    	var html = '';
 	    	html += '<a href="http://' + data.hosts + ':' + data.port + '/">View</a>';

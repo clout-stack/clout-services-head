@@ -50,6 +50,22 @@ module.exports = {
 			Service.findById(req.params.id).then(res.ok, res.badRequest);
 		}
 	},
+	isOnline: {
+		path: '/management/service/:id/isOnline',
+		description: 'check service status',
+		method: 'get',
+		fn: function isOnline(req, res) {
+			var Service = req.models.Service;
+			Service.findById(req.params.id).then(function (service) {
+				if (!service) { return res.badRequest(); }
+				service.isOnline().then(function () {
+					res.ok(true);
+				}, function () {
+					res.ok(false);
+				});
+			}, res.badRequest);
+		}
+	},
 	add: {
 		path: '/management/service',
 		description: 'add service',
