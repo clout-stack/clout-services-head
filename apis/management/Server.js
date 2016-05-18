@@ -49,6 +49,22 @@ module.exports = {
 			Server.findById(req.params.id).then(res.ok, res.badRequest);
 		}
 	},
+	isOnline: {
+		path: '/management/server/:id/isOnline',
+		description: 'check server status',
+		method: 'get',
+		fn: function isOnline(req, res) {
+			var Server = req.models.Server;
+			Server.findById(req.params.id).then(function (server) {
+				if (!server) { return res.badRequest(); }
+				server.isOnline().then(function () {
+					res.ok(true);
+				}, function () {
+					res.ok(false);
+				});
+			}, res.badRequest);
+		}
+	},
 	add: {
 		path: '/management/server',
 		description: 'add server',

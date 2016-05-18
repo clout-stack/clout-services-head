@@ -36,6 +36,18 @@
 						<input type="text" class="form-control" ng-model="server.port" placeholder="Enter server port">
 						<small class="text-muted">Which port is clout-server-child running on? (default: 8082)</small>
 					</fieldset>
+					<div ng-if="server.id">
+						<fieldset class="form-group">
+							<label for="exampleInputEmail1">Public Key</label>
+							<input type="text" class="form-control" value="68tuyfgasd3112o798r6sd7-6tifjg0678" disabled="">
+							<small class="text-muted">Public Key for authenticating requests</small>
+						</fieldset>
+						<fieldset class="form-group">
+							<label for="exampleInputEmail1">Private Key</label>
+							<input type="text" class="form-control" value="687iuyhsada2313jh78234dsa-67oyuil" disabled="">
+							<small class="text-muted">Private Key for authenticating requests</small>
+						</fieldset>
+					</div>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
