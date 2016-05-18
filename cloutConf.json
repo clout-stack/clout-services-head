@@ -1,3 +1,6 @@
 {
-	"nodes": 1
+	"nodes": 1,
+	"modules": {
+		"clout-socket-io": null
+	}
 }

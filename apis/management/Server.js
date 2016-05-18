@@ -39,6 +39,16 @@ module.exports = {
 			});
 		}
 	},
+	getById: {
+		path: '/management/server/:id',
+		description: 'get server by id',
+		method: 'get',
+		// hooks: [ auth.isStaff() ],
+		fn: function get(req, res) {
+			var Server = req.models.Server;
+			Server.findById(req.params.id).then(res.ok, res.badRequest);
+		}
+	},
 	add: {
 		path: '/management/server',
 		description: 'add server',
