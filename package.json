@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "async": "^1.5.2",
-    "clout-js": "*",
+    "clout-js": "0.1.1",
     "debug": "^2.2.0",
     "express-partials": "^0.3.0",
     "lodash": "^4.6.1",
